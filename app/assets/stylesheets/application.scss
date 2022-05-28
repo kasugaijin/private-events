@@ -14,4 +14,32 @@
  *= require_self
  */
 
+
+ $input-placeholder-color: rgb(113, 107, 107);
+
  @import 'bulma';
+
+ .navbar-brand .title {
+   color: white;
+ }
+
+ //round images
+ .image {
+   border-radius: 50%;
+   img {
+     border-radius: 50%;
+   }
+ }
+
+ .notification:not(:last-child) {
+   margin-bottom: 0;
+ }
+
+ input[type='checkbox'] {
+  margin-top: 1rem;
+  margin-right: 0.5rem;
+}
+
+.cancel {
+  margin-top: 2rem;
+}
