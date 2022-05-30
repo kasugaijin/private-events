@@ -19,20 +19,15 @@
 
  @import 'bulma';
 
- .navbar-brand .title {
+ .navbar-brand .title, .navbar-item {
    color: white;
  }
 
- //round images
- .image {
-   border-radius: 50%;
-   img {
-     border-radius: 50%;
-   }
- }
-
- .notification:not(:last-child) {
-   margin-bottom: 0;
+ .notification {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.5em;
  }
 
  input[type='checkbox'] {
