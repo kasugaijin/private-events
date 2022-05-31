@@ -65,7 +65,7 @@ class EventsController < ApplicationController
 
   def authorize_item
     unless @event.creator == current_user 
-      redirect_to @event, error: 'You are not authorized to edit this event.'
+      redirect_to @event, alert: 'You are not authorized do that.'
     end
   end
 

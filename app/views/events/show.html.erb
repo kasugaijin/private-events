@@ -9,9 +9,9 @@
             <p>Date: <%= @event.date %></p>
             <p>Details: <%= @event.description %></p>
           </div>
-          <% if user_signed_in? %>
-            <nav class="level">
-              <div class="level-left is-mobile">
+          <nav class="level">
+            <div class="level-left is-mobile">
+              <% if @event.creator == current_user %>
                 <%= link_to 'Edit', edit_event_path(@event) %>
                 <%= link_to 'Delete', event_path(@event),
                     data: 
@@ -19,10 +19,10 @@
                             turbo_method: :delete,
                             turbo_confirm: "Click OK to confirm deleting this event."
                           } %>
-                <%= button_to 'Attend' %>
-              </div>
-            </nav>
-          <% end %>
+              <% end %>
+                  <%= button_to 'Attend' %>
+                </div>
+              </nav>
         </div>
       </article>
     </div>
