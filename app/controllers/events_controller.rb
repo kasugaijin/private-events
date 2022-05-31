@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_bark, only: %i[ show edit update destroy ]
+  before_action :set_event, only: %i[ show edit update destroy ]
   before_action :authenticate_user!, except: [ :index, :show ]
   # authorizing access to the events resource - only creator can access
   before_action :authorize_item, only: [:update, :edit, :destroy]
@@ -59,7 +59,7 @@ class EventsController < ApplicationController
   end
 
   # Only allow a list of trusted parameters through.
-  def bark_params
+  def event_params
     params.require(:event).permit(:name, :description, :location, :date, :private)
   end
 

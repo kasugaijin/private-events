@@ -1,0 +1,30 @@
+<div class="column is-half">
+      <div class="box">
+      <article class="media">
+        <div class="media-content">
+          <div class="content">
+            <strong>@<%= @event.creator.username %></strong><br /> 
+            <p>Event: <%= @event.name %></p>
+            <p>Location: <%= @event.location %></p>
+            <p>Date: <%= @event.date %></p>
+            <p>Details: <%= @event.description %></p>
+          </div>
+          <% if user_signed_in? %>
+            <nav class="level">
+              <div class="level-left is-mobile">
+                <%= link_to 'Edit', edit_event_path(@event) %>
+                <%= link_to 'Delete', event_path(@event),
+                    data: 
+                          {
+                            turbo_method: :delete,
+                            turbo_confirm: "Click OK to confirm deleting this event."
+                          } %>
+                <%= button_to 'Attend' %>
+              </div>
+            </nav>
+          <% end %>
+        </div>
+      </article>
+    </div>
+
+</div>
