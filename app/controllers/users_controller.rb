@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
 
   def show
-    @users = Event.all
+    @events = current_user.events.all
   end
 
 end

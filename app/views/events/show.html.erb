@@ -1,30 +1,56 @@
-<div class="column is-half">
-      <div class="box">
-      <article class="media">
-        <div class="media-content">
-          <div class="content">
-            <strong>@<%= @event.creator.username %></strong><br /> 
-            <p>Event: <%= @event.name %></p>
-            <p>Location: <%= @event.location %></p>
-            <p>Date: <%= @event.date %></p>
-            <p>Details: <%= @event.description %></p>
-          </div>
-          <nav class="level">
-            <div class="level-left is-mobile">
-              <% if @event.creator == current_user %>
-                <%= link_to 'Edit', edit_event_path(@event) %>
-                <%= link_to 'Delete', event_path(@event),
-                    data: 
-                          {
-                            turbo_method: :delete,
-                            turbo_confirm: "Click OK to confirm deleting this event."
-                          } %>
-              <% end %>
-                  <%= button_to 'Attend' %>
+<section class='section'>
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <h3 class="title is-3 panel-heading"><%= @event.name %></h3>
+            <div class="box">
+            <article class="media">
+              <div class="media-content">
+                <div class="content">
+                  <p><strong>Host:</strong> @<%= @event.creator.username %></strong><br /> 
+                  <p><strong>Location:</strong> <%= @event.location %></p>
+                  <p><strong>Date:</strong> <%= @event.date %></p>
+                  <p><strong>Details:</strong> <%= @event.description %></p>
                 </div>
-              </nav>
-        </div>
-      </article>
+                <nav class="level">
+                  <div class="level-left is-mobile">
+                    <% if @event.creator == current_user %>
+                      <p><%= link_to 'Edit', edit_event_path(@event) %>&nbsp; &nbsp;</p>
+                      <%= link_to 'Delete', event_path(@event),
+                          class: 'button',
+                          data: 
+                                {
+                                  turbo_method: :delete,
+                                  turbo_confirm: "Click OK to confirm deleting this event."
+                                } %>
+                    <% end %>
+                    <% if @event.creator != current_user %>
+                        <%= link_to 'Attend', @event, class: 'button' %>
+                    <% end %>
+                      </div>
+                    </nav>
+              </div>
+            </article>
+          </div>
+      </div>
     </div>
-
-</div>
+  </div>
+</div> 
+<section class='section'>
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <h4 class="title is-4 panel-heading">Attendees</h4>
+            <div class="box">
+            <article class="media">
+              <div class="media-content">
+                <div class="content">
+                  <p>@Jimminy Cricket</p>
+                </div>
+              </div>
+            </article>
+          </div>
+      </div>
+    </div>
+  </div>
+</div> 

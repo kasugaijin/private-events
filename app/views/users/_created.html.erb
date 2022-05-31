@@ -1,7 +1,8 @@
-<div class="column is-half">
- <h1 class="title is-1">Upcoming Events</h1>
+<div class="column is-one-third">
+ <h3 class="title is-3">Your Events</h3>
     <% @events.each do | event |%>
-      <p class="panel-heading"><%= event.name %></p>
+    <article class='panel is-info'>
+      <p class="panel-heading is-info"><%= event.name %></p>
         <div class="box">
         <article class="media">
           <div class="media-content">
@@ -13,16 +14,21 @@
                 <%= event.date.strftime("%d") %>,
                 <%= event.date.year %></p>
             </div>
-            <% if user_signed_in? %>
               <nav class="level">
                 <div class="level-left is-mobile">
-                  <p><%= link_to 'View', event %> &nbsp; &nbsp;</p>
-                  <%= link_to 'Attend', event, class: 'button' %>
+                  <p><%= link_to 'Edit', edit_event_path(event) %>&nbsp; &nbsp;</p>
+                  <%= link_to 'Cancel', event_path(event),
+                      class: 'button',
+                      data: 
+                          {
+                            turbo_method: :delete,
+                            turbo_confirm: "Click OK to confirm cancelling this event."
+                          } %>
                 </div>
               </nav>
-            <% end %>
           </div>
         </article>
         </div>
+      </article>
   <% end %>
 </div>
