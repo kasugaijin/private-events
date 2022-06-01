@@ -1,6 +1,6 @@
 <div class="column is-one-third">
  <h3 class="title is-3">Upcoming Events</h3>
-    <% @events.each do | event |%>
+    <% current_user.attended_events do | event |%>
       <article class='panel is-warning'>
         <p class="panel-heading"><%= event.name %></p>
           <div class="box">

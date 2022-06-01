@@ -13,14 +13,32 @@
                 <%= event.date.strftime("%d") %>,
                 <%= event.date.year %></p>
             </div>
-            <% if user_signed_in? %>
               <nav class="level">
                 <div class="level-left is-mobile">
                   <p><%= link_to 'View', event %> &nbsp; &nbsp;</p>
-                  <%= link_to 'Attend', event, class: 'button' %>
+                  <%# following gives edit, delete to creator or attend or withdraw to other user %>
+                    <% if user_signed_in? %> 
+                      <% if event.creator == current_user %>
+                        <p><%= link_to 'Edit', edit_event_path(event) %>&nbsp; &nbsp;</p>
+                        <%= link_to 'Delete', event_path(event),
+                            class: 'button',
+                            data: 
+                                  {
+                                    turbo_method: :delete,
+                                    turbo_confirm: "Click OK to confirm deleting this event."
+                                  } %>
+                      <% elsif %>
+                        <% !current_user.attended_event_ids.include?(event.id) %>
+                        
+                            <%= link_to 'Attend', event_create_attendings_path(event.id), 
+                                data: { turbo_method: "post" }, class: 'button' %>
+                      <% else %>
+                          <%= link_to 'Withdraw', event_destroy_attendings_path(event.id), 
+                              data: { turbo_method: "delete" }, class: 'button' %>
+                      <% end %>
+                    <% end %>
                 </div>
               </nav>
-            <% end %>
           </div>
         </article>
         </div>
