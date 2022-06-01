@@ -1,34 +1,35 @@
 <div class="column is-one-third">
- <h3 class="title is-3">Past Events</h3>
-    <% @events.each do | event |%>
-      <article class='panel is-success'>
-        <p class="panel-heading"><%= event.name %></p>
-          <div class="box">
-          <article class="media">
-            <div class="media-content">
-              <div class="content">
-                <p><strong>Host:</strong> @<%= event.creator.username %><br/> 
-                <p><strong>Location:</strong> <%= event.location %></p>
-                <p><strong>Date:</strong> 
-                  <%= event.date.strftime("%B")[0,3] %>
-                  <%= event.date.strftime("%d") %>,
-                  <%= event.date.year %></p>
-              </div>
-                <nav class="level">
-                  <div class="level-left is-mobile">
-                    <p><%= link_to 'View', event %>&nbsp; &nbsp;</p>
-                    <%= link_to 'Remove', event_path(event),
-                          class: 'button',
-                          data: 
-                              {
-                                turbo_method: :delete,
-                                turbo_confirm: "Click OK to confirm deleting this event."
-                              } %>
-                  </div>
-                </nav>
+  <h3 class="title is-3">Past Events</h3>
+  <% old_user_events = current_user.attended_events.where('date < ?', DateTime.now) %>
+  <% old_user_events.each do | event |%>
+    <article class='panel is-success'>
+      <p class="panel-heading"><%= event.name %></p>
+      <div class="box">
+        <article class="media">
+          <div class="media-content">
+            <div class="content">
+              <p><strong>Host:</strong> @<%= event.creator.username %><br/> 
+              <p><strong>Location:</strong> <%= event.location %></p>
+              <p><strong>Date:</strong> 
+                <%= event.date.strftime("%B")[0,3] %>
+                <%= event.date.strftime("%d") %>,
+                <%= event.date.year %></p>
+            </div>
+              <nav class="level">
+                <div class="level-left is-mobile">
+                  <p><%= link_to 'View', event %>&nbsp; &nbsp;</p>
+                  <%= link_to 'Remove', event_path(event),
+                      class: 'button',
+                      data: 
+                      {
+                        turbo_method: :delete,
+                        turbo_confirm: "Click OK to confirm deleting this event."
+                      } %>
+                </div>
+              </nav>
             </div>
           </div>
       </article>
-    <% end %>
-  </article>
+    </article>
+  <% end %>
 </div>

@@ -53,7 +53,9 @@
               <article class="media">
                 <div class="media-content">
                   <div class="content">
-                    <p>@Jimminy Cricket</p>
+                    <% @event.attendees.each do | attendee |%>
+                      <%= attendee.username %>
+                    <% end %>
                   </div>
                 </div>
               </article>
