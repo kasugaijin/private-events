@@ -4,6 +4,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  # sets method name for user.events and associates user_id with creator_id in events table
+  
+  has_many :attendings, foreign_key: :attendee_id
+  has_many :attended_events, through: :attendings
+
+  # associates user_id with creator_id in events table and allows event.creator method
   has_many :events, foreign_key: :creator_id, class_name: "Event"
 end
