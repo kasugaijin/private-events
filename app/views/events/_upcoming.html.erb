@@ -1,12 +1,17 @@
 <div class="column is-half">
  <h1 class="title is-1">Upcoming Events</h1>
     <% @events.future_events.each do | event |%>
-      <p class="panel-heading"><%= event.name %></p>
+      <article class="panel <%= ' is-info' if event.creator == current_user %>">
+        <p class="panel-heading"><%= event.name %> - @<%=event.creator.username%></p>
         <div class="box">
-        <article class="media">
+          <article class="media">
           <div class="media-content">
             <div class="content">
-              <p><strong>Host:</strong> @<%= event.creator.username %><br/> 
+              <% if event.private == true %>
+                  <p><strong>Attendance:</strong>&nbsp; invite only</p>
+                <% else %>
+                  <p><strong>Attendance:</strong>&nbsp; anyone</p>
+                <% end %>
               <p><strong>Location:</strong> <%= event.location %></p>
               <p><strong>Date:</strong> 
                 <%= event.date.strftime("%B")[0,3] %>
@@ -15,11 +20,11 @@
             </div>
               <nav class="level">
                 <div class="level-left is-mobile">
-                  <p><%= link_to 'View', event %> &nbsp; &nbsp;</p>
+                  <p><%= link_to 'View', event, class: 'button' %> &nbsp; &nbsp;</p>
                   <%# following gives edit, delete to creator or attend or withdraw to other user %>
                     <% if user_signed_in? %> 
                       <% if event.creator == current_user %>
-                        <p><%= link_to 'Edit', edit_event_path(event) %>&nbsp; &nbsp;</p>
+                        <p><%= link_to 'Edit', edit_event_path(event), class: 'button' %>&nbsp; &nbsp;</p>
                         <%= link_to 'Delete', event_path(event),
                             class: 'button',
                             data: 
@@ -44,5 +49,6 @@
           </div>
         </article>
         </div>
+      </article>
     <% end %>
 </div>
