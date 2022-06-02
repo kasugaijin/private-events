@@ -30,8 +30,10 @@
                             <%= link_to 'Attend', event_create_attendings_path(@event.id), 
                                 data: { turbo_method: "post" }, class: 'button' %>
                       <% else %>
-                          <%= link_to 'Withdraw', event_destroy_attendings_path(@event.id), 
-                              data: { turbo_method: "delete" }, class: 'button' %>
+                          <%= link_to 'Withdraw', event_destroy_attendings_path(event.id), 
+                              data: { turbo_method: "delete",
+                                      turbo_confirm: "Click OK to confirm withdrawing from this event." }, 
+                                      class: 'button' %>
                       <% end %>
                     <% end %>
                   </div>
