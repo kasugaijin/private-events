@@ -11,6 +11,9 @@
                   <p><strong>Location:</strong> <%= @event.location %></p>
                   <p><strong>Date:</strong> <%= @event.date %></p>
                   <p><strong>Details:</strong> <%= @event.description %></p>
+                  <% if @event.private == true %>
+                    <p><strong>Private Event:</strong> Invite only</p>
+                  <% end %>
                 </div>
                 <nav class="level">
                   <div class="level-left is-mobile">
@@ -30,7 +33,7 @@
                             <%= link_to 'Attend', event_create_attendings_path(@event.id), 
                                 data: { turbo_method: "post" }, class: 'button' %>
                       <% else %>
-                          <%= link_to 'Withdraw', event_destroy_attendings_path(event.id), 
+                          <%= link_to 'Withdraw', event_destroy_attendings_path(@event.id), 
                               data: { turbo_method: "delete",
                                       turbo_confirm: "Click OK to confirm withdrawing from this event." }, 
                                       class: 'button' %>
