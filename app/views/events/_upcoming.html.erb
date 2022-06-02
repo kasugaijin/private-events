@@ -1,6 +1,6 @@
 <div class="column is-half">
  <h1 class="title is-1">Upcoming Events</h1>
-    <% @events.each do | event |%>
+    <% @events.future_events.each do | event |%>
       <p class="panel-heading"><%= event.name %></p>
         <div class="box">
         <article class="media">

@@ -1,7 +1,7 @@
 <div class="column is-one-quarter">
   <h3 class="title is-3">Past Events</h3>
   <nav class="panel">
-    <% @events.each do | event |%>
+    <% @events.past_events.each do | event |%>
       <div class="panel-block">
         <p><%= event.date.strftime("%B")[0,3] %> &nbsp;</p>
         <p><%= event.date.year %> &nbsp; &nbsp;</p>
