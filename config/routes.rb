@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :events do
     post 'create_attendings', to: 'attendings#create'
     delete 'destroy_attendings', to: 'attendings#destroy'
+    resources :invites
   end
 
   # sets url /my_events to show user's events
