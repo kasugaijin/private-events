@@ -4,8 +4,8 @@ Rails.application.routes.draw do
 
   # nest the attendings routes under events to allow you to pass @event in the url to controller
   resources :events do
-    post 'create_attendings', to: 'attendings#create'
-    delete 'destroy_attendings', to: 'attendings#destroy'
+    post 'create_attending', to: 'attendings#create'
+    delete 'destroy_attending', to: 'attendings#destroy'
     post 'create_invite', to: 'invites#create'
     delete 'destroy_invite', to: 'invites#destroy'
   end

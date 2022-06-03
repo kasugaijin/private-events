@@ -13,7 +13,7 @@
                     <p><strong>@<%= user.username %></strong> - <%= user.email %></p>
                     <%= link_to 'Invite', event_create_invite_path(:event_id => @event.id, :invitee_id=> user.id), 
                         data: { turbo_method: "post" }, class: 'button invite' %>
-                        <%= link_to 'Rescind', event_destroy_invite_path(:event_id => @event.id, :invitee_id=> user.id), 
+                    <%= link_to 'Rescind', event_destroy_invite_path(:event_id => @event.id, :invitee_id=> user.id), 
                         data: { turbo_method: "delete" }, class: 'button invite' %>
                     </div>
                     <div>

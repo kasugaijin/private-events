@@ -18,15 +18,15 @@ class InvitesController < ApplicationController
   end
 
   def destroy
-    # Where query to find all Attendings with event_id (from params)
-    # Then Where query to find all of those Attendings with user_id
-    # Then find the Attending object using the Attending_id (pulled from active record relation so need to pop it out)
-    attended_event = Attending.where(attended_event_id: params[:event_id])
-    user_attended_event = attended_event.where(attendee_id: current_user.id)
-    @attending = Attending.find(user_attended_event.ids.pop)
-    @attending.destroy
-    redirect_to root_path
-    flash.notice = "You are no longer attending this event."
+    # Where query to find all invites with event_id (do not use .find beause it returns the object & 
+    # cannot perform subsequent .where on it)
+    # Then where query to find all of those invites with invitee_id
+    # Then find the Invite object using the Attending_id (pulled from active record relation so need to pop it out)
+    invites_event = Invite.where(event_id: params[:event_id])
+    invitee_invite = invites_event.where(invitee_id: params[:invitee_id])
+    @invite = Invite.find(invitee_invite.ids.pop)
+    @invite.destroy
+    flash.notice = "Invite was rescinded."
   end
   
   private

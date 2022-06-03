@@ -18,7 +18,7 @@
               <nav class="level">
                 <div class="level-left is-mobile">
                   <p><%= link_to 'View', event, class: 'button' %>&nbsp; &nbsp;</p>
-                  <%= link_to 'Remove', event_destroy_attendings_path(event.id), 
+                  <%= link_to 'Remove', event_destroy_attending_path(event.id), 
                               data: { turbo_method: "delete",
                                       turbo_confirm: "Click OK to confirm removing this past event." }, 
                                       class: 'button' %>
