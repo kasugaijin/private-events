@@ -11,7 +11,10 @@
                   <div class="box box-flex">
                     <div>
                     <p><strong>@<%= user.username %></strong> - <%= user.email %></p>
-                    <%= link_to 'Invite', root_path, class: 'button invite' %>
+                    <%= link_to 'Invite', event_create_invite_path(:event_id => @event.id, :invitee_id=> user.id), 
+                        data: { turbo_method: "post" }, class: 'button invite' %>
+                        <%= link_to 'Rescind', event_destroy_invite_path(:event_id => @event.id, :invitee_id=> user.id), 
+                        data: { turbo_method: "delete" }, class: 'button invite' %>
                     </div>
                     <div>
                     <p>Status: Pending</p>
