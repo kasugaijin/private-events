@@ -1,0 +1,15 @@
+      <div class="column is-2">
+        <h4 class="panel-heading">Attendees</h4>
+            <div class="box">
+              <article class="media">
+                <div class="media-content">
+                  <div class="content">
+                    <% @event.attendees.each do | attendee |%>
+                      <%= attendee.username %><br />
+                    <% end %>
+                  </div>
+                </div>
+              </article>
+            </div>
+      </div>
+ 

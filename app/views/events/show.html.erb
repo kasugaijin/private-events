@@ -1,7 +1,8 @@
 <section class='section'>
   <div class="container">
     <div class="columns is-centered">
-      <div class="column is-8">
+      
+      <div class="column is-6">
         <h3 class="panel-heading"><%= @event.name %></h3>
           <div class="box">
             <article class="media">
@@ -12,14 +13,14 @@
                   <p><strong>Date:</strong> <%= @event.date %></p>
                   <p><strong>Details:</strong> <%= @event.description %></p>
                   <% if @event.private == true %>
-                  <p><strong>Attendance:</strong>&nbsp; invite only</p>
-                <% else %>
-                  <p><strong>Attendance:</strong>&nbsp; anyone</p>
-                <% end %>
+                    <p><strong>Attendance:</strong>&nbsp; invite only</p>
+                  <% else %>
+                    <p><strong>Attendance:</strong>&nbsp; anyone</p>
+                  <% end %>
                 </div>
                 <nav class="level">
                   <div class="level-left is-mobile">
-                  <% if user_signed_in? %>
+                    <% if user_signed_in? %>
                       <% if @event.creator == current_user %>
                         <p><%= link_to 'Edit', edit_event_path(@event), class: 'button' %>&nbsp; &nbsp;</p>
                         <%= link_to 'Delete', event_path(@event),
@@ -46,28 +47,11 @@
               </div>
             </article>
           </div>
+          <% if @event.creator == current_user %>
+            <%= render 'invitepane' %>
+          <% end %>
       </div>
-    </div>
+      <%= render 'attendeelist' %>
+   </div>
   </div>
 </section>
-
-<section class='section'>
-  <div class="container">
-    <div class="columns is-centered">
-      <div class="column is-8">
-        <h4 class="panel-heading">Attendees</h4>
-            <div class="box">
-              <article class="media">
-                <div class="media-content">
-                  <div class="content">
-                    <% @event.attendees.each do | attendee |%>
-                      <%= attendee.username %><br />
-                    <% end %>
-                  </div>
-                </div>
-              </article>
-            </div>
-      </div>
-    </div>
-  </div>
-</section>  

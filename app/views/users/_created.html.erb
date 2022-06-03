@@ -1,5 +1,5 @@
 <div class="column is-one-third">
- <h3 class="title is-3">Your Events</h3>
+ <h3 class="title is-3">My Events</h3>
     <% current_user.events.each do | event |%>
     <article class='panel is-info'>
       <p class="panel-heading is-info"><%= event.name %></p>
@@ -16,7 +16,8 @@
             </div>
               <nav class="level">
                 <div class="level-left is-mobile">
-                  <p><%= link_to 'Edit', edit_event_path(event) %>&nbsp; &nbsp;</p>
+                  <p><%= link_to 'View', event, class: 'button' %> &nbsp; &nbsp;</p>
+                  <p><%= link_to 'Edit', edit_event_path(event), class: 'button' %>&nbsp; &nbsp;</p>
                   <%= link_to 'Cancel', event_path(event),
                       class: 'button',
                       data: 

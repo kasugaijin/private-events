@@ -1,0 +1,20 @@
+
+    <div class="columns">
+      <div class="column is-full">
+        <article class="panel">
+          <p class="panel-heading">Send Invites</p>
+          <div class="box">
+            <article class="media">
+              <div class="media-content">
+                <div class="content">
+                <% @event.attendees.each do | attendee |%>
+                      <%= attendee.username %><br />
+                    <% end %>
+                </div>
+              </div>
+            </article>
+          </div>
+        </article>
+      </div>
+    </div>
+
