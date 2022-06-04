@@ -35,10 +35,10 @@
                       <% elsif %>
                         <% !current_user.attended_event_ids.include?(event.id) %>
                         
-                            <%= link_to 'Attend', event_create_attending_path(event.id), 
+                            <%= link_to 'Attend', create_attending_path(:attendee_id=>current_user.id, :attended_event_id=>event.id), 
                                 data: { turbo_method: "post" }, class: 'button' %>
                       <% else %>
-                          <%= link_to 'Withdraw', event_destroy_attending_path(event.id), 
+                          <%= link_to 'Withdraw', destroy_attending_path(:attendee_id=>current_user.id, :attended_event_id=>event.id), 
                               data: { turbo_method: "delete",
                                       turbo_confirm: "Click OK to confirm withdrawing from this event." }, 
                                       class: 'button' %>

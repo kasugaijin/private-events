@@ -4,8 +4,7 @@ class AttendingsController < ApplicationController
 
   # create action taking user id and event id and creating row in attendings table
   def create
-    @attending = Attending.new(attendee_id: current_user.id,
-                               attended_event_id: params[:event_id])
+    @attending = Attending.new(attending_params)
 
     respond_to do |format|
       if @attending.save
@@ -17,12 +16,11 @@ class AttendingsController < ApplicationController
   end
 
   def destroy
-    # Where query to find all Attendings with event_id (from params)
-    # Then Where query to find all of those Attendings with user_id
-    # Then find the Attending object using the Attending_id (pulled from active record relation so need to pop it out)
-    attended_event = Attending.where(attended_event_id: params[:event_id])
-    user_attended_event = attended_event.where(attendee_id: current_user.id)
-    @attending = Attending.find(user_attended_event.ids.pop)
+    # Where query to find all Attendings with event_id and user_id
+    # Then find the Attending object by passing in the resulting where relation array
+    # the splat* is used to pass an array as args to a method
+    attended_event = Attending.where(attending_params)
+    @attending = Attending.find(*attended_event.ids)
     @attending.destroy
     redirect_to root_path
     flash.notice = "You are no longer attending this event."
@@ -30,8 +28,8 @@ class AttendingsController < ApplicationController
   
   private
 
-  def event_params
-    params.require(:attending).permit(:event_id)
+  def attending_params
+    params.permit(:attendee_id, :attended_event_id)
   end
 
 end
