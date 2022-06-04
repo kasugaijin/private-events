@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     delete 'destroy_invite', to: 'invites#destroy'
   end
 
+  # nesting the attendings routes under event passed the event_id to controller in addition to the
+  # manually entered hash values for event and user, which causes an error. Could resolve this?
   post 'create_attending', to: 'attendings#create'
   delete 'destroy_attending', to: 'attendings#destroy'
 

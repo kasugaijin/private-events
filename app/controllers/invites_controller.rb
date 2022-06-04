@@ -22,7 +22,7 @@ class InvitesController < ApplicationController
                                    invitee_id: params[:invitee_id])
     @invite = Invite.find(*invitee_invites.ids)
     @invite.destroy
-    flash.notice = "Invite was rescinded."
+    flash.notice = "Invite was removed."
   end
   
   private
