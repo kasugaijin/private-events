@@ -1,4 +1,3 @@
-
     <div class="columns">
       <div class="column is-full">
         <article class="panel">
@@ -7,30 +6,31 @@
             <article class="media">
               <div class="media-content">
                 <div class="content">
-                <% User.all.order('username Asc').each do | user |%>
-                  <div class="box box-flex">
-                    <div>
-                      <p><strong>@<%= user.username %></strong> - <%= user.email %></p>
-                      
-                      <% if Invite.where(event_id: @event.id, invitee_id: user.id).exists? %>
-                        <%= link_to 'Rescind', event_destroy_invite_path(:event_id=> @event.id, :invitee_id=> user.id), 
-                            data: { turbo_method: "delete" }, class: 'button rescind' %>
-                      <% else %>
-                        <%= link_to 'Invite', event_create_invite_path(:event_id => @event.id, :invitee_id=> user.id, :inviter_id=> current_user.id), 
-                            data: { turbo_method: "post" }, class: 'button' %>
-                      <% end %>
-                    </div>
-                    <div>
-                      <% if Invite.where(event_id: @event.id, invitee_id: user.id).exists? %>
-                        <p>Status: Pending</p>
-                      <% elsif %>
-                        <% Attending.where(attended_event_id: @event.id,
-                                              attendee_id: user.id).exists? %>
-                          <p>Status: Attending</p>
-                      <% end %>
-                    </div>
-                  </div>
-                <% end %>
+                  <% User.all.order('username Asc').each do | user |%>
+                    <% unless user.id == current_user.id %>
+                      <div class="box invites">
+                        <div>
+                          <p><strong>@<%= user.username %></strong> - <%= user.email %></p>
+                        </div>
+                          <% if Attending.where(attended_event_id: @event.id,
+                                                  attendee_id: user.id).exists? %>
+                            <div>
+                              <p>Status: User attending</p>
+                            </div>
+                          <% elsif %>
+                            <% Invite.where(event_id: @event.id, invitee_id: user.id).exists? %>
+                              <%= link_to 'Rescind', event_destroy_invite_path(:event_id=> @event.id, :invitee_id=> user.id), 
+                                  data: { turbo_method: "delete" }, class: 'button rescind' %>
+                              <div>
+                                <p>Status: Invite pending</p>
+                              </div>   
+                          <% else %>
+                              <%= link_to 'Invite', event_create_invite_path(:event_id => @event.id, :invitee_id=> user.id, :inviter_id=> current_user.id), 
+                                  data: { turbo_method: "post" }, class: 'button' %>
+                          <% end %>
+                      </div>
+                    <% end %>
+                  <% end %>
                 </div>
               </div>
             </article>

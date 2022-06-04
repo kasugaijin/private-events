@@ -21,9 +21,7 @@ class AttendingsController < ApplicationController
     # the splat* is used to pass an array as args to a method
     attended_event = Attending.where(attending_params)
     @attending = Attending.find(*attended_event.ids)
-    @attending.each do | attending |
-      attending.destroy
-    end
+    @attending.destroy
     redirect_to my_events_path
     flash.notice = "You are no longer attending this event."
   end

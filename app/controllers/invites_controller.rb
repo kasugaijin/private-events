@@ -22,6 +22,8 @@ class InvitesController < ApplicationController
                                    invitee_id: params[:invitee_id])
     @invite = Invite.find(*invitee_invites.ids)
     @invite.destroy
+
+    redirect_to my_events_path
     flash.notice = "Invite was removed."
   end
   

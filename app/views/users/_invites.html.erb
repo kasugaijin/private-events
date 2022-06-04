@@ -6,12 +6,16 @@
         <div class="media-content">  
           <div class="content">
             <% current_user.invites.each do | invite |%>
-              <%= Event.find(invite.event_id).name %>
-              <%= link_to 'View', event_path(invite.event_id) %>
-              <%= link_to 'Attend', create_attending_path(:attendee_id=> current_user.id, :attended_event_id=> invite.event_id), 
-                                data: { turbo_method: "post" }, class: 'button' %>
-              <%= link_to 'Clear invite', event_destroy_invite_path(:event_id=> invite.event_id, :invitee_id=> current_user.id), 
-                            data: { turbo_method: "delete" }, class: 'button rescind' %><br />
+              <div class='panel-block invites'>
+                <h3><%= Event.find(invite.event_id).name %></h3>
+                <%= link_to 'View', event_path(invite.event_id), class: 'button' %>
+                <%if !current_user.attended_event_ids.include?(invite.event_id) %>
+                  <%= link_to 'Attend', create_attending_path(:attendee_id=>current_user.id, :attended_event_id=>invite.event_id), 
+                      data: { turbo_method: "post" }, class: 'button' %>
+                <% end %>
+                <%= link_to 'Clear invite', event_destroy_invite_path(:event_id=> invite.event_id, :invitee_id=> current_user.id), 
+                              data: { turbo_method: "delete" }, class: 'button rescind' %><br />
+              </div>
             <% end %>
           </div>   
         </div>

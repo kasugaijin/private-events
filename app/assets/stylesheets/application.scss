@@ -50,10 +50,15 @@
 }
 
 .rescind {
-  background-color: rgb(151, 161, 158) !important;
+  background-color: rgb(229, 132, 29) !important;
 }
 
-.box-flex {
+.attending {
+  background-color: rgb(60, 225, 68);
+}
+
+.invites {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
