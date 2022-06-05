@@ -14,5 +14,7 @@ User experience is as follows:
 
 This was a fun project that required a solid understanding of routes, MVC and active record associations. Design was acheived using CSS framework Bulma. 
 
+View live: https://powerful-ridge-55376.herokuapp.com/
+
 Screenshot:
 ![Screenshot](./screenshot.png?raw=true "")
