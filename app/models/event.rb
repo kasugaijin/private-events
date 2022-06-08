@@ -10,11 +10,7 @@ class Event < ApplicationRecord
   
   validates :name, :location, :date, presence: true
   validates :description, presence: true, length: { minimum: 10 }
-
-  # def self.past
-  #   self.where('date < ?', DateTime.now)
-  # end
+  validates_presence_of :creator_id
 
 end
 
-# belongs_to the creator_id column in events table, which is associated with users table

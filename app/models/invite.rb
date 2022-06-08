@@ -7,4 +7,6 @@ class Invite < ApplicationRecord
   belongs_to :inviter, class_name: 'User'
   belongs_to :invitee, class_name: 'User'
 
+  validates_presence_of :event_id, :inviter_id, :invitee_id
+
 end

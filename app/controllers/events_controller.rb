@@ -36,8 +36,9 @@ class EventsController < ApplicationController
 
   def update
     @event = Event.find_by(params[:id])
-
-    if @event.update(event_params)
+    if @event.nil?
+      flash.alert = 'Event does not exist'
+    elsif @event.update(event_params)
       redirect_to @event
     else
       render :edit, status: :unprocessable_entity

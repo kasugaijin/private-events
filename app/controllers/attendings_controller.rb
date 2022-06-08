@@ -2,16 +2,21 @@ class AttendingsController < ApplicationController
 
   before_action :authenticate_user!
 
-  # create action taking user id and event id and creating row in attendings table
+  # check the attending does not already exist
   def create
-    @attending = Attending.new(attending_params)
+    if Attending.find_by(attending_params).nil?
+      @attending = Attending.new(attending_params)
 
-    respond_to do |format|
-      if @attending.save
-        format.html { redirect_to my_events_path, notice: "You are attending this event!" }
-      else
-        format.html { redirect_to my_events_path, alert: "An error occured." }
+      respond_to do |format|
+        if @attending.save
+          format.html { redirect_to my_events_path, notice: "You are attending this event!" }
+        else
+          format.html { redirect_to my_events_path, alert: "An error occured." }
+        end
       end
+    else
+      flash.alert = 'You are already attending.'
+      redirect_to my_events_path
     end
   end
 
