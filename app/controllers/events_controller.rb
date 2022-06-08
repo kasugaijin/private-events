@@ -31,11 +31,11 @@ class EventsController < ApplicationController
   end
 
   def edit
-    @event = Event.find(params[:id])
+    @event = Event.find_by(params[:id])
   end
 
   def update
-    @event = Event.find(params[:id])
+    @event = Event.find_by(params[:id])
 
     if @event.update(event_params)
       redirect_to @event
@@ -44,10 +44,16 @@ class EventsController < ApplicationController
     end
   end
 
+  # check destroy worked and notify
   def destroy
-    @event = Event.find(params[:id])
-    @event.destroy
-
+    @event = Event.find_by(params[:id])
+    if @event.nil?
+      flash.alert = 'Event does not exist'
+    elsif @event.destroy
+      flash.notice = 'Event was deleted.'
+    else
+      flash.alert = 'Error - event was not deleted.'
+    end
     redirect_to root_path, status: :see_other
   end
 

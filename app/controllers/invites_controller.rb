@@ -14,17 +14,18 @@ class InvitesController < ApplicationController
     end
   end
 
+  # to prevent errors, check if record exists
+  # check destroy worked and notify
   def destroy
-    # Where query to find all invites with event_id and invitee_id
-    # Then pass the active record relation (array) into Invite.find using splat*
-    # to pass the ids array as args. Multiple ids exist if same invite was sent more than once
-    invitee_invites = Invite.where(event_id: params[:event_id],
-                                   invitee_id: params[:invitee_id])
-    @invite = Invite.find(*invitee_invites.ids)
-    @invite.destroy
-
+    @invite = Invite.find_by(invite_params)
+    if @invite.nil?
+      flash.alert = "This invite does not exist"
+    elsif @invite.destroy
+      flash.notice = "Invite removed."
+    else
+      flash.alert = "Error - invite was not deleted."
+    end
     redirect_to my_events_path
-    flash.notice = "Invite was removed."
   end
   
   private

@@ -15,15 +15,18 @@ class AttendingsController < ApplicationController
     end
   end
 
+  # to prevent errors, check if record exists
+  # check destroy worked and notify
   def destroy
-    # Where query to find all Attendings with event_id and user_id
-    # Then find the Attending object by passing in the resulting where relation array
-    # the splat* is used to pass an array as args to a method
-    attended_event = Attending.where(attending_params)
-    @attending = Attending.find(*attended_event.ids)
-    @attending.destroy
+    @attending = Attending.find_by(attending_params)
+    if @attending.nil?
+      flash.alert = "This event attendance does not exist"
+    elsif @attending.destroy
+      flash.notice = "You are no longer attending this event."
+    else
+      flash.alert = "Error - attendance was not deleted."
+    end
     redirect_to my_events_path
-    flash.notice = "You are no longer attending this event."
   end
   
   private

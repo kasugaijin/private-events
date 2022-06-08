@@ -1,6 +1,6 @@
 class Event < ApplicationRecord
   # scope allows common queries to be defined herein and method names set
-  scope :past_events, -> { where('date < ?', DateTime.now) }
+  scope :past_events, -> { where('date < ?', Time.zone.now) }
   scope :future_events, -> { where('date > ?', DateTime.now) }
 
   has_many :invites, dependent: :destroy
