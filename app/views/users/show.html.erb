@@ -1,4 +1,4 @@
-<% unless Invite.where(invitee_id: current_user.id).empty? %>
+<% if current_user.invites.exists? %>
   <section class='section'>
     <div class="container">
       <div class="columns is-centered">
