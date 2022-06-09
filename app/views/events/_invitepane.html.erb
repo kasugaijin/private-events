@@ -12,13 +12,14 @@
                         <div>
                           <p><strong>@<%= user.username %></strong> - <%= user.email %></p>
                         </div>
-                          <% if Attending.where(attended_event_id: @event.id,
-                                                  attendee_id: user.id).exists? %>
+                          <%# see Attending scope :confirmed %>
+                          <% if user.attendings.confirmed(@event.id).exists? %>
                             <div>
                               <p>Status: User attending</p>
                             </div>
                           <% elsif %>
-                            <% Invite.where(event_id: @event.id, invitee_id: user.id).exists? %>
+                          <%# see Invite scope :received %>
+                            <% user.invites.received(@event.id, user.id).exists? %>
                               <%= link_to 'Rescind', event_destroy_invite_path(:event_id=> @event.id, :invitee_id=> user.id), 
                                   data: { turbo_method: "delete" }, class: 'button rescind' %>
                               <div>

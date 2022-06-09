@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  scope :attending_event, ->(event_id) { self.attendings.where(attended_event_id: event_id).exists? }
+  
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
